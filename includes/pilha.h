@@ -1,8 +1,6 @@
 #ifndef PILHA_H
 #define PILHA_H
 
-#define PILHA_MAX 100
-
 struct nodo {
 	int dado;
 
