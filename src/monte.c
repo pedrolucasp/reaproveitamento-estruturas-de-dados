@@ -17,7 +17,7 @@ void subir_no_monte(struct monte *m, int indice) {
 	}
 }
 
-void descer_no_monte(struct monte *m, int indice) {
+void organizar_monte(struct monte *m, int indice) {
 	int filho_esquerdo, filho_direito, maior;
 
 	while (1) {
@@ -52,7 +52,7 @@ void descer_no_monte(struct monte *m, int indice) {
 
 int inserir_no_monte(struct monte *m, struct pet novo_pet) {
 	if (m->tamanho == MONTE_MAX) {
-		return -1; // Montículo cheio
+		return -1;
 	}
 
 	m->dados[m->tamanho] = novo_pet;
@@ -73,7 +73,7 @@ int remover_do_monte(struct monte *m, struct pet *resultado) {
 	m->dados[0] = m->dados[m->tamanho - 1];
 	m->tamanho--;
 
-	descer_no_monte(m, 0);
+	organizar_monte(m, 0);
 
 	return 0;
 }
