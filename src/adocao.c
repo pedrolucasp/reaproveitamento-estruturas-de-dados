@@ -28,6 +28,7 @@ int main() {
 			case 1: {
 					struct pessoa nova_pessoa;
 					printf("Nome do interessado: ");
+					fflush(stdout);
 					scanf("%s", nova_pessoa.nome);
 					nova_pessoa.id = fila_interessados.tamanho + 1; // ID automático
 					if (enfileira(&fila_interessados, nova_pessoa) == 0) {
@@ -40,8 +41,10 @@ int main() {
 			case 2: {
 					struct pet novo_pet;
 					printf("Nome do pet: ");
+					fflush(stdout);
 					scanf("%s", novo_pet.nome);
 					printf("Nível de urgência (1-10): ");
+					fflush(stdout);
 					scanf("%d", &novo_pet.urgencia);
 					novo_pet.id = pets.tamanho + 1; // ID automático
 					if (inserir_no_monte(&pets, novo_pet) == 0) {
