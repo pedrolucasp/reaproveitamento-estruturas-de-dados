@@ -30,7 +30,7 @@ int main() {
 					printf("Nome do interessado: ");
 					fflush(stdout);
 					scanf("%s", nova_pessoa.nome);
-					nova_pessoa.id = fila_interessados.tamanho + 1; // ID automático
+					nova_pessoa.id = fila_interessados.tamanho + 1;
 					if (enfileira(&fila_interessados, nova_pessoa) == 0) {
 						printf("Interessado %s adicionado à fila.\n", nova_pessoa.nome);
 					} else {
@@ -43,10 +43,12 @@ int main() {
 					printf("Nome do pet: ");
 					fflush(stdout);
 					scanf("%s", novo_pet.nome);
+
 					printf("Nível de urgência (1-10): ");
 					fflush(stdout);
 					scanf("%d", &novo_pet.urgencia);
-					novo_pet.id = pets.tamanho + 1; // ID automático
+
+					novo_pet.id = pets.tamanho + 1;
 					if (inserir_no_monte(&pets, novo_pet) == 0) {
 						printf("Pet %s adicionado ao monte com urgência %d.\n",
 								novo_pet.nome,
@@ -62,6 +64,11 @@ int main() {
 
 					int remocao;
 					int desenfileiramento;
+
+					if (pets.tamanho == 0 || fila_interessados.tamanho == 0) {
+						printf("Fila de interessados ou pets insuficientes");
+						break;
+					}
 
 					remocao = remover_do_monte(&pets, &pet_para_adocao);
 					desenfileiramento = desenfileira(&fila_interessados, &pessoa_para_adocao);
