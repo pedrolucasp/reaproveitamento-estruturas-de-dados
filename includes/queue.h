@@ -3,26 +3,26 @@
 
 #include "person.h"
 
-struct nodo_fila {
-    struct pessoa dado;
+struct queue_node {
+    struct person data;
 
-    struct nodo_fila *prox;
-    struct nodo_fila *ant;
+    struct queue_node *next;
+    struct queue_node *prev;
 };
 
-struct fila {
-    struct nodo_fila *frente;
-    struct nodo_fila *atras;
+struct queue {
+    struct queue_node *front;
+    struct queue_node *back;
 
-    int tamanho;
+    int size;
 };
 
-void inicializa_fila(struct fila *f);
-int enfileira(struct fila *f, struct pessoa p);
-int desenfileira(struct fila *f, struct pessoa *p);
-int fila_vazia(struct fila *f);
-void exibir_fila(struct fila *f);
-void limpa_fila(struct fila *f);
+void initialize_queue(struct queue *q);
+int enqueue(struct queue *q, struct person p);
+int dequeue(struct queue *q, struct person *p);
+int empty_queue(struct queue *q);
+void list_queue(struct queue *q);
+void free_queue(struct queue *q);
 
 #endif
 

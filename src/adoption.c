@@ -5,14 +5,14 @@
 #include "heap.h"
 
 int main() {
-	int executando = 1;
-	struct fila fila_interessados;
-	struct monte pets;
+	int running = 1;
+	struct queue peoples_queue;
+	struct heap pets;
 
-	inicializa_fila(&fila_interessados);
-	pets.tamanho = 0;
+	initialize_queue(&peoples_queue);
+	pets.size = 0;
 
-	while (executando) {
+	while (running) {
 		printf("\nMenu:\n");
 		printf("1. Adicionar interessado à fila de adoção\n");
 		printf("2. Adicionar pet à fila de prioridade\n");
@@ -21,90 +21,90 @@ int main() {
 		printf("5. Exibir pets urgentes\n");
 		printf("6. Sair\n");
 
-		int opcao;
-		scanf("%d", &opcao);
+		int option;
+		scanf("%d", &option);
 
-		switch (opcao) {
+		switch (option) {
 			case 1: {
-					struct pessoa nova_pessoa;
+					struct person new_person;
 					printf("Nome do interessado: ");
 					fflush(stdout);
-					scanf("%s", nova_pessoa.nome);
-					nova_pessoa.id = fila_interessados.tamanho + 1;
-					if (enfileira(&fila_interessados, nova_pessoa) == 0) {
-						printf("Interessado %s adicionado à fila.\n", nova_pessoa.nome);
+					scanf("%s", new_person.name);
+					new_person.id = peoples_queue.size + 1;
+					if (enqueue(&peoples_queue, new_person) == 0) {
+						printf("Interessado %s adicionado à fila.\n", new_person.name);
 					} else {
 						printf("Erro: falha ao adicionar à fila.\n");
 					}
 					break;
 				}
 			case 2: {
-					struct pet novo_pet;
+					struct pet new_pet;
 					printf("Nome do pet: ");
 					fflush(stdout);
-					scanf("%s", novo_pet.nome);
+					scanf("%s", new_pet.name);
 
 					printf("Nível de urgência (1-10): ");
 					fflush(stdout);
-					scanf("%d", &novo_pet.urgencia);
+					scanf("%d", &new_pet.urgency);
 
-					novo_pet.id = pets.tamanho + 1;
-					if (inserir_no_monte(&pets, novo_pet) == 0) {
+					new_pet.id = pets.size + 1;
+					if (add_to_heap(&pets, new_pet) == 0) {
 						printf("Pet %s adicionado ao monte com urgência %d.\n",
-								novo_pet.nome,
-								novo_pet.urgencia);
+								new_pet.name,
+								new_pet.urgency);
 					} else {
 						printf("Erro: monte cheio.\n");
 					}
 					break;
 				}
 			case 3: {
-					struct pet pet_para_adocao;
-					struct pessoa pessoa_para_adocao;
+					struct pet adopted;
+					struct person adopter;
 
-					int remocao;
-					int desenfileiramento;
+					int removal_status;
+					int dequeue_status;
 
-					if (pets.tamanho == 0 || fila_interessados.tamanho == 0) {
+					if (pets.size == 0 || peoples_queue.size == 0) {
 						printf("Fila de interessados ou pets insuficientes");
 						break;
 					}
 
-					remocao = remover_do_monte(&pets, &pet_para_adocao);
-					desenfileiramento = desenfileira(&fila_interessados, &pessoa_para_adocao);
+					removal_status = remove_from_heap(&pets, &adopted);
+					dequeue_status = dequeue(&peoples_queue, &adopter);
 
-					if (remocao == 0 && desenfileiramento == 0) {
+					if (removal_status == 0 && dequeue_status == 0) {
 
 						printf("Interessado %s adotou o pet %s com urgência %d.\n",
-								pessoa_para_adocao.nome,
-								pet_para_adocao.nome,
-								pet_para_adocao.urgencia);
+								adopter.name,
+								adopted.name,
+								adopted.urgency);
 					} else {
 						printf("Nenhum pet ou interessado disponível.\n");
 					}
 					break;
 				}
 			case 4: {
-					exibir_fila(&fila_interessados);
+					list_queue(&peoples_queue);
 					break;
 				}
 			case 5: {
 					printf("Pets com urgência:\n");
-					if (pets.tamanho == 0) {
+					if (pets.size == 0) {
 						printf("Nenhum pet na fila de urgência.\n");
 					} else {
-						for (int i = 0; i < pets.tamanho; i++) {
+						for (int i = 0; i < pets.size; i++) {
 							printf("ID: %d, Nome: %s, Urgência: %d\n",
-									pets.dados[i].id,
-									pets.dados[i].nome,
-									pets.dados[i].urgencia);
+									pets.data[i].id,
+									pets.data[i].name,
+									pets.data[i].urgency);
 						}
 					}
 					break;
 				}
 			case 6: {
-					limpa_fila(&fila_interessados);
-					executando = 0;
+					free_queue(&peoples_queue);
+					running = 0;
 					break;
 				}
 			default:

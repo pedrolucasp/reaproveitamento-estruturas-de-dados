@@ -1,9 +1,9 @@
-#ifndef PESSOA_H
-#define PESSOA_H
+#ifndef PERSON_H
+#define PERSON_H
 
-struct pessoa {
+struct person {
     int id;
-    char nome[50];
+    char name[50];
 };
 
 #endif

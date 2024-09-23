@@ -1,79 +1,79 @@
 #include "heap.h"
 
-void subir_no_monte(struct monte *m, int indice) {
-	while (indice > 0) {
-		int indice_pai = (indice - 1) / 2;
+void climb_heap(struct heap *h, int index) {
+	while (index > 0) {
+		int parent_index = (index - 1) / 2;
 
-		if (m->dados[indice_pai].urgencia < m->dados[indice].urgencia) {
+		if (h->data[parent_index].urgency < h->data[index].urgency) {
 			struct pet temp;
-			temp = m->dados[indice_pai];
+			temp = h->data[parent_index];
 
-			m->dados[indice_pai] = m->dados[indice];
-			m->dados[indice] = temp;
-			indice = indice_pai;
+			h->data[parent_index] = h->data[index];
+			h->data[index] = temp;
+			index = parent_index;
 		} else {
 			break;
 		}
 	}
 }
 
-void organizar_monte(struct monte *m, int indice) {
-	int filho_esquerdo, filho_direito, maior;
+void heapify(struct heap *h, int index) {
+	int left_child, right_child, biggest;
 
 	while (1) {
-		filho_esquerdo = 2 * indice + 1;
-		filho_direito = 2 * indice + 2;
-		maior = indice;
+		left_child = 2 * index + 1;
+		right_child = 2 * index + 2;
+		biggest = index;
 
-		if (filho_esquerdo < m->tamanho &&
-				m->dados[filho_esquerdo].urgencia >
-				m->dados[maior].urgencia) {
-			maior = filho_esquerdo;
+		if (left_child < h->size &&
+				h->data[left_child].urgency >
+				h->data[biggest].urgency) {
+			biggest = left_child;
 		}
 
-		if (filho_direito < m->tamanho &&
-				m->dados[filho_direito].urgencia >
-				m->dados[maior].urgencia) {
-			maior = filho_direito;
+		if (right_child < h->size &&
+				h->data[right_child].urgency >
+				h->data[biggest].urgency) {
+			biggest = right_child;
 		}
 
-		if (maior != indice) {
+		if (biggest != index) {
 			struct pet temp;
-			temp = m->dados[indice];
+			temp = h->data[index];
 
-			m->dados[indice] = m->dados[maior];
-			m->dados[maior] = temp;
-			indice = maior;
+			h->data[index] = h->data[biggest];
+			h->data[biggest] = temp;
+			index = biggest;
 		} else {
 			break;
 		}
 	}
 }
 
-int inserir_no_monte(struct monte *m, struct pet novo_pet) {
-	if (m->tamanho == MONTE_MAX) {
+int add_to_heap(struct heap *h, struct pet new_pet) {
+	if (h->size == HEAP_MAX) {
 		return -1;
 	}
 
-	m->dados[m->tamanho] = novo_pet;
+	h->data[h->size] = new_pet;
 
-	subir_no_monte(m, m->tamanho);
+	climb_heap(h, h->size);
 
-	m->tamanho++;
+	h->size++;
 
 	return 0;
 }
 
-int remover_do_monte(struct monte *m, struct pet *resultado) {
-	if (m->tamanho == 0) {
+int remove_from_heap(struct heap *h, struct pet *result) {
+	if (h->size == 0) {
 		return -1;
 	}
 
-	*resultado = m->dados[0];
-	m->dados[0] = m->dados[m->tamanho - 1];
-	m->tamanho--;
+	*result = h->data[0];
+	h->data[0] = h->data[h->size - 1];
+	h->size--;
 
-	organizar_monte(m, 0);
+	heapify(h, 0);
 
 	return 0;
 }

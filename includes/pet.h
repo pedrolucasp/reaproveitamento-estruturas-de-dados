@@ -3,8 +3,8 @@
 
 struct pet {
 	int id;
-	char nome[50];
-	int urgencia;
+	char name[50];
+	int urgency;
 };
 
 #endif
