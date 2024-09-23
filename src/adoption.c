@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "fila.h"
-#include "monte.h"
+#include "queue.h"
+#include "heap.h"
 
 int main() {
 	int executando = 1;

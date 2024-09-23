@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "pilha.h"
+#include "stack.h"
 
 int main() {
 	struct pilha pilha;

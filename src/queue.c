@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "fila.h"
-#include "pessoa.h"
+#include "queue.h"
+#include "person.h"
 
 void inicializa_fila(struct fila* f) {
 	f->frente = NULL;

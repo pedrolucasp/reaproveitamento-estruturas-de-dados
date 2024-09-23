@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "pilha.h"
+#include "stack.h"
 
 void inicializa_pilha(struct pilha *p) {
 	p->topo = NULL;

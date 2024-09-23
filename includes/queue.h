@@ -1,7 +1,7 @@
 #ifndef FILA_H
 #define FILA_H
 
-#include "pessoa.h"
+#include "person.h"
 
 struct nodo_fila {
     struct pessoa dado;
